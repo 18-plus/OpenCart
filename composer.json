@@ -1,0 +1,10 @@
+{
+    "config": {
+        "vendor-dir": "./upload/system/library/age_gate_vendor/"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "eighteenplus/agegate": "dev-master",
+        "mobiledetect/mobiledetectlib": "^2.8"
+    }
+}

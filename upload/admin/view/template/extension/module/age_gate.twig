@@ -1,0 +1,383 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ action.cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error.permission %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> You don't have permission
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% elseif error|length > 0 %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> Check for errors
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action.save }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+          
+          <input type="hidden" name="name" value="Age Gateway 18+">
+          
+          <div>
+              <h2>General</h2>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-status">18+ Age Gateway On/Off</label>
+                <div class="col-sm-10">
+                  <select name="status" id="input-status" class="form-control">
+                    {% if status %}
+                    <option value="1" selected="selected">{{ text_enabled }}</option>
+                    <option value="0">{{ text_disabled }}</option>
+                    {% else %}
+                    <option value="1">{{ text_enabled }}</option>
+                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                    {% endif %}
+                  </select>
+                </div>
+              </div>
+          </div>
+          
+          
+          <div>
+              <h2>Styling</h2>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_title">Title <span data-toggle="tooltip" title="Text in title tag"></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="agegate_title" value="{{ agegate_title }}" id="input-agegate_title" class="form-control" />
+                  {% if error.agegate_title  %}
+                  <div class="text-danger">{{ error_agegate_title }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_logo">Site logo <span data-toggle="tooltip" title="Site logo before 'Age Gateway' text and inside Qr-Code"></span></label>
+                <div class="col-sm-10">
+                    <a href="" id="thumb-agegate_logo" data-toggle="image" class="img-thumbnail" data-original-title="" title="">
+                        <img src="{{agegate_logo_thumb}}" alt="" title="" data-placeholder="{{agegate_logo_placeholder}}">
+                    </a>
+                  <input type="hidden" name="agegate_logo" value="{{agegate_logo}}" id="input-agegate_logo">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_site_name">Site name <span data-toggle="tooltip" title="Text before 'Age Gateway'"></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="agegate_site_name" value="{{ agegate_site_name }}" id="input-agegate_site_name" class="form-control" />
+                  {% if error.agegate_site_name  %}
+                  <div class="text-danger">{{ error_agegate_site_name }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_custom_text">Custom text <span data-toggle="tooltip" title="Text before/after 'reference to Digital Economy Act'"></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="agegate_custom_text" value="{{ agegate_custom_text }}" id="input-agegate_custom_text" class="form-control" />
+                  {% if error.agegate_custom_text  %}
+                  <div class="text-danger">{{ error_agegate_custom_text }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_custom_text_location">Custom text location</label>
+                <div class="col-sm-10">
+                  <select name="agegate_custom_text_location" id="input-agegate_custom_text_location" class="form-control">
+                    <option value="top" {% if agegate_custom_text_location == 'top' %}selected{% endif %}>Below Age Gateway</option>
+                    <option value="bottom" {% if agegate_custom_text_location == 'bottom' %}selected{% endif %}>Above 18+ Logo</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_background_color">Background color <span data-toggle="tooltip" title="Default: #f7f1f1"></span></label>
+                <div class="col-sm-10">
+                  <input type="text" autocomplete="off" name="agegate_background_color" value="{{ agegate_background_color }}" id="input-agegate_background_color" class="form-control" placeholder="#f7f1f1" />
+                  {% if error.agegate_background_color  %}
+                  <div class="text-danger">{{ error_agegate_background_color }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_text_color">Text color <span data-toggle="tooltip" title="Default: #212529"></span></label>
+                <div class="col-sm-10">
+                  <input type="text" autocomplete="off" name="agegate_text_color" value="{{ agegate_text_color }}" id="input-agegate_text_color" class="form-control" placeholder="#212529" />
+                  {% if error.agegate_text_color  %}
+                  <div class="text-danger">{{ error_agegate_text_color }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                  <input type="checkbox" name="agegate_remove_reference" value="1" {% if agegate_remove_reference %}checked{% endif %} id="input-agegate_remove_reference" class="form-check-input" />
+                  <label class="control-label" for="input-agegate_remove_reference">Remove reference to Digital Economy Act</label>
+                  {% if error.agegate_remove_reference  %}
+                  <div class="text-danger">{{ error_agegate_remove_reference }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                  <input type="checkbox" name="agegate_remove_visiting" value="1" {% if agegate_remove_visiting %}checked{% endif %} id="input-agegate_remove_visiting" class="form-check-input" />
+                  <label class="control-label" for="input-agegate_remove_visiting">Remove 'you are visiting from UK' text</label>
+                  {% if error.agegate_remove_visiting  %}
+                  <div class="text-danger">{{ error_agegate_remove_visiting }}</div>
+                  {% endif %}
+                </div>
+              </div>
+          </div>
+          
+          <div>
+              <h2>Testing</h2>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_test_mode">Testing mode <span data-toggle="tooltip" title="Turning Testing Mode on will override the start date setting and activate the Age Gateway immediately"></span></label>
+                <div class="col-sm-10">
+                  <input type="checkbox" name="agegate_test_mode" value="1" {% if agegate_test_mode %}checked{% endif %} id="input-agegate_test_mode" class="form-check-input" />
+                  {% if error.agegate_test_mode  %}
+                  <div class="text-danger">{{ error_agegate_test_mode }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_test_anyip">Any IP Address <span data-toggle="tooltip" title="Turning this on will show the Age Gateway in Testing Mode for all IP addresses accessing the website"></span></label>
+                <div class="col-sm-10">
+                  <input type="checkbox" name="agegate_test_anyip" value="1" {% if agegate_test_anyip %}checked{% endif %} id="input-agegate_test_anyip" class="form-check-input" />
+                  {% if error.agegate_test_anyip  %}
+                  <div class="text-danger">{{ error_agegate_test_anyip }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_test_ip">Test IP Address <span data-toggle="tooltip" title="Enter the IP address from which you want to test the Age Gateway in testing Mode. The Age Gateway will be shown only on those IP address. Note: by default, the Age Gateway when activated will only show to UK based IP addresses. Therefore, specifying a non-UK IP address here is only way to see Age Gateway from a non-UK based IP address."></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="agegate_test_ip" value="{{ agegate_test_ip }}" id="input-agegate_test_ip" class="form-control" />
+                  <small>Current IP: {{ ip }}</small>
+                  {% if error.agegate_test_ip  %}
+                  <div class="text-danger">{{ error_agegate_test_ip }}</div>
+                  {% endif %}
+                </div>
+              </div>
+          </div>
+          
+          <div>
+              <h2>Advanced Settings</h2>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_start_from">Start from <span data-toggle="tooltip" title="When activated, the Age Gateway will be active for UK based IP address starting at Midnight on 15 July 2019. You can change the starting date here but remember the law requires age verification from 15 July 2019."></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="agegate_start_from" readonly value="{{ agegate_start_from }}" id="input-agegate_start_from" class="form-control" />
+                  {% if error.agegate_start_from  %}
+                  <div class="text-danger">{{ error_agegate_start_from }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              {% if warning %}
+              <div class="col-lg-12 col-md-12">
+                <div class="alert alert-warning">Server session lifetime ({{sessionLifeTime}} hours) is too short for selected values</div>
+              </div>
+              {% endif %}
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_desktop_session_lifetime">Desktop session lifetime<span data-toggle="tooltip" title="The Age Gateway will trigger once per session for eah visitor. You can change the lifetime of the session. By default, the session lifetime is 1 hour for desktop and 2 hours for mobile."></span></label>
+                <div class="col-sm-10">
+                    <div class="inputPicker">  
+                        <input readonly class="inputPickerResult form-control">
+                        <div class="inputPickerBody">
+                            <small>Max value: 2 days</small>
+                            <div class="input-group">
+                                <input type="button" value="-" class="button-minus">
+                                <input type="number" id="agegate_desktop_session_lifetime_d" class="quantity-field" name="agegate_desktop_session_lifetime[d]" value="{{ agegate_desktop_session_lifetime.d }}">
+                                <input type="button" value="+" class="button-plus">
+                                <span>Days</span>
+                            </div>
+                        
+                            <div class="input-group">
+                              <input type="button" value="-" class="button-minus">
+                              <input type="number" class="quantity-field" id="agegate_desktop_session_lifetime_h" name="agegate_desktop_session_lifetime[h]" value="{{ agegate_desktop_session_lifetime.h }}">
+                              <input type="button" value="+" class="button-plus">
+                              <span>Hours</span>
+                            </div>
+                        
+                            <div class="input-group">
+                              <input type="button" value="-" class="button-minus">
+                              <input type="number" class="quantity-field" id="agegate_desktop_session_lifetime_m" name="agegate_desktop_session_lifetime[m]" value="{{ agegate_desktop_session_lifetime.m }}">
+                              <input type="button" value="+" class="button-plus">
+                              <span>Minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                  {% if error.agegate_desktop_session_lifetime  %}
+                  <div class="text-danger">Must be less than 2 days</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-agegate_mobile_session_lifetime">Mobile session lifetime<span data-toggle="tooltip" title="The Age Gateway will trigger once per session for eah visitor. You can change the lifetime of the session. By default, the session lifetime is 1 hour for desktop and 2 hours for mobile."></span></label>
+                <div class="col-sm-10">
+                    <div class="inputPicker">  
+                        <input readonly class="inputPickerResult form-control">
+                        <div class="inputPickerBody">
+                            <small>Max value: 7 days</small>
+                            <div class="input-group">
+                                <input type="button" value="-" class="button-minus">
+                                <input type="number" id="agegate_mobile_session_lifetime_d" class="quantity-field" name="agegate_mobile_session_lifetime[d]" value="{{ agegate_mobile_session_lifetime.d }}">
+                                <input type="button" value="+" class="button-plus">
+                                <span>Days</span>
+                            </div>
+                            
+                            <div class="input-group">
+                              <input type="button" value="-" class="button-minus">
+                              <input type="number" class="quantity-field" id="agegate_mobile_session_lifetime_h" name="agegate_mobile_session_lifetime[h]" value="{{ agegate_mobile_session_lifetime.h }}">
+                              <input type="button" value="+" class="button-plus">
+                              <span>Hours</span>
+                            </div>
+                            
+                            <div class="input-group">
+                              <input type="button" value="-" class="button-minus">
+                              <input type="number" class="quantity-field" id="agegate_mobile_session_lifetime_m" name="agegate_mobile_session_lifetime[m]" value="{{ agegate_mobile_session_lifetime.m }}">
+                              <input type="button" value="+" class="button-plus">
+                              <span>Minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                  {% if error.agegate_mobile_session_lifetime  %}
+                  <div class="text-danger">Must be less than 7 days</div>
+                  {% endif %}
+                </div>
+              </div>
+          </div>
+          
+          <input type="hidden"name="module_id" value="{{ module_id }}" />
+        </form>
+        
+        <small>
+            The 18+ Age Gateway presents an age verification solution for UK based visitors to enable your website to comply with the Digital Economy Act 2017.   The gateway works in conjunction with the 18+ App, available on the App Store and Google Play Store.   Use of the 18+ Age Gateway is free.  However, use of the 18+ Age Gateway is subject to our <a href="https://www.agegateway.com/terms.html" target="_blank">Terms and Conditions</a>.  For more information or support, please visit <a href="https://www.agegateway.com/">https://www.agegateway.com/</a>.  (c) Copyright 2019 by 18 Plus Ltd.  All Rights Reserved.
+        </small>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+    
+    jQuery('#input-agegate_text_color, #input-agegate_background_color').colorpicker({
+        align: 'left',
+    });
+    
+    pickerInit();
+    
+    jQuery('#input-agegate_start_from').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
+    
+    new AgeGateForm();
+    
+})();
+
+function AgeGateForm() {
+    this.form = jQuery('#form-module');
+    
+    this.test_mode = jQuery('[name="agegate_test_mode"]');
+    this.test_anyip = jQuery('[name="agegate_test_anyip"]');
+    this.test_ip = jQuery('[name="agegate_test_ip"]');
+    
+    this.enableInputs = function() {
+        this.test_anyip.prop('disabled', !this.test_mode.is(':checked'));
+        this.test_ip.prop('disabled', !this.test_mode.is(':checked'));
+        
+        this.test_ip.prop('disabled', this.test_anyip.is(':checked'));
+    }
+    
+    this.test_mode.on('click', () => {this.enableInputs()});
+    this.test_anyip.on('click', () => {this.enableInputs()});
+    
+    this.enableInputs();
+}
+
+function pickerInit() {
+    calculateResult();
+    
+    function incrementValue(e) {
+      e.preventDefault();
+
+      var parent = jQuery(e.target).closest('div');
+      var field = parent.find('input[type="number"]');
+      var currentVal = parseInt(field.val(), 10);
+
+      if (!isNaN(currentVal)) {
+        field.val(currentVal + 1);
+      } else {
+        field.val(0);
+      }
+      calculateResult();
+    }
+
+    function decrementValue(e) {
+      e.preventDefault();
+      
+      var parent = jQuery(e.target).closest('div');
+      var field = parent.find('input[type="number"]');
+      var currentVal = parseInt(field.val(), 10);
+
+      if (!isNaN(currentVal) && currentVal > 0) {
+        field.val(currentVal - 1);
+      } else {
+        field.val(0);
+      }
+      calculateResult();
+    }
+    
+    function calculateResult() {
+        jQuery('.inputPicker').each(function(){
+            var result = jQuery(this).find('.inputPickerResult');
+            var fields = jQuery(this).find('.quantity-field');
+            
+            var str = `${fields[0].value || 0} days ${fields[1].value || 0} hours ${fields[2].value || 0} minutes`;
+            
+            result.val(str);
+        })
+    }
+
+    jQuery('.input-group').on('click', '.button-plus', function(e) {
+        incrementValue(e);
+    });
+
+    jQuery('.input-group').on('click', '.button-minus', function(e) {
+      decrementValue(e);
+    });
+    
+    jQuery('.inputPickerResult').on('click', function(){
+        jQuery(this).closest('.inputPicker').find('.inputPickerBody').show();
+    });
+    jQuery(document).on('click', function(event){
+        if (!jQuery(event.target).parents('.inputPicker').length) {
+            calculateResult();
+            jQuery('.inputPickerBody').hide();
+        }
+    });
+}
+</script>
+
+{{ footer }}
